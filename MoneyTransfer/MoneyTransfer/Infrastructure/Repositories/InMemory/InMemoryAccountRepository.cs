@@ -16,9 +16,11 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
                 new () { Id = 3, Balance = 500, UserId = 1 }
             };
         }
-        public Task<double> GetAccountBalanceAsync(int accountId)
+        public async Task<double?> GetAccountBalanceAsync(int accountId)
         {
-            throw new NotImplementedException();
+            var balance = _accounts.FirstOrDefault(a => a.Id == accountId)?.Balance;
+            await Task.CompletedTask;
+            return balance;
         }
     }
 }
