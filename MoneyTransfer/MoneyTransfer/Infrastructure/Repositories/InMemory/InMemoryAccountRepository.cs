@@ -3,11 +3,11 @@ using MoneyTransfer.Infrastructure.PluginContracts;
 
 namespace MoneyTransfer.Infrastructure.Repositories.InMemory
 {
-    public class AccountRepository : IAccountRepository
+    public class InMemoryAccountRepository : IAccountRepository
     {
         private readonly List<BankAcount> _accounts;
 
-        public AccountRepository() 
+        public InMemoryAccountRepository() 
         {
             _accounts = new List<BankAcount>()
             {
