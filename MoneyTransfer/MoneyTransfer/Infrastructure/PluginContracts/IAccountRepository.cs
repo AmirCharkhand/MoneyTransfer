@@ -2,6 +2,6 @@
 {
     public interface IAccountRepository
     {
-        public Task<double> GetAccountBalanceAsync(int accountId);
+        public Task<double?> GetAccountBalanceAsync(int accountId);
     }
 }

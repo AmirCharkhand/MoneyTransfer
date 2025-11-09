@@ -6,10 +6,9 @@ namespace MoneyTransfer.Application.UseCases.Account
     {
         private readonly IAccountRepository _accountRepository = accountRepository;
 
-        public async Task<double> ExecuteAsync(int accountId)
+        public async Task<double?> ExecuteAsync(int accountId)
         {
-            double balance = await _accountRepository.GetAccountBalanceAsync(accountId);
-            return balance;
+            return await _accountRepository.GetAccountBalanceAsync(accountId);
         }
     }
 }
