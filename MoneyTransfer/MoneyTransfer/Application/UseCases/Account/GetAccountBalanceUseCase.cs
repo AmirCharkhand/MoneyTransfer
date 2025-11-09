@@ -1,6 +1,6 @@
 ﻿using MoneyTransfer.Infrastructure.PluginContracts;
 
-namespace MoneyTransfer.Infrastructure.UseCases.Account
+namespace MoneyTransfer.Application.UseCases.Account
 {
     public class GetAccountBalanceUseCase(IAccountRepository accountRepository)
     {
