@@ -22,5 +22,25 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
             await Task.CompletedTask;
             return balance;
         }
+
+        public async Task<BankAcount?> GetBankAcountByIdAsync(int id)
+        {
+            var account = _accounts.FirstOrDefault(a =>a.Id == id);
+            await Task.CompletedTask;
+
+            return account;
+
+        }
+
+        public async Task UpdateAccountBalance(int accountId, double newBalance)
+        {
+            var account = _accounts.FirstOrDefault(a => a.Id == accountId);
+
+            if (account is null || newBalance < 0)
+                return;
+
+            account.Balance = newBalance;
+            await Task.CompletedTask;
+        }
     }
 }
