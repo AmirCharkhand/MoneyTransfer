@@ -6,7 +6,10 @@ namespace MoneyTransfer.Application.Extensions
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-            services.AddTransient<GetAccountBalanceUseCase>();
+            services
+                .AddTransient<GetAccountBalanceUseCase>()
+                .AddTransient<TransferMoneyUseCase>();
+
             return services;
         }
     }
