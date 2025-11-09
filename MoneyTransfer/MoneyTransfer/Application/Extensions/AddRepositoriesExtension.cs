@@ -6,8 +6,11 @@ namespace MoneyTransfer.Application.Extensions
     public static class AddRepositoriesExtension
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
-        { 
-            services.AddSingleton<IAccountRepository,InMemoryAccountRepository> ();
+        {
+            services
+                .AddSingleton<IAccountRepository, InMemoryAccountRepository>()
+                .AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
+
             return services;
         }
     }
