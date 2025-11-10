@@ -1,4 +1,5 @@
-﻿using MoneyTransfer.Application.Models;
+﻿using MoneyTransfer.Application.Exceptions;
+using MoneyTransfer.Application.Models;
 using MoneyTransfer.CoreBusiness.Enums;
 using MoneyTransfer.Infrastructure.PluginContracts;
 
@@ -11,11 +12,11 @@ namespace MoneyTransfer.Application.UseCases.Account
 
         public async Task ExecuteAsync(int fromAccountId, int toAccountId, double amount)
         {
-            var fromAccount = await _accountRepository.GetBankAcountByIdAsync(fromAccountId);
-            var toAccount = await _accountRepository.GetBankAcountByIdAsync(toAccountId);
+            var fromAccount = await _accountRepository.GetBankAcountByIdAsync(fromAccountId)
+                ?? throw new AccountNotFoundException(fromAccountId);
 
-            if (fromAccount is null || toAccount is null)
-                return;
+            var toAccount = await _accountRepository.GetBankAcountByIdAsync(toAccountId)
+                ?? throw new AccountNotFoundException(toAccountId);
 
             var fromAccountTransaction = new NewTransaction(
                 Guid.NewGuid(),

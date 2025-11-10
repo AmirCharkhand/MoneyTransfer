@@ -1,4 +1,5 @@
-﻿using MoneyTransfer.Infrastructure.PluginContracts;
+﻿using MoneyTransfer.Application.Exceptions;
+using MoneyTransfer.Infrastructure.PluginContracts;
 
 namespace MoneyTransfer.Application.UseCases.Account
 {
@@ -8,7 +9,8 @@ namespace MoneyTransfer.Application.UseCases.Account
 
         public async Task<double?> ExecuteAsync(int accountId)
         {
-            return await _accountRepository.GetAccountBalanceAsync(accountId);
+            return await _accountRepository.GetAccountBalanceAsync(accountId)
+                ?? throw new AccountNotFoundException(accountId);
         }
     }
 }
