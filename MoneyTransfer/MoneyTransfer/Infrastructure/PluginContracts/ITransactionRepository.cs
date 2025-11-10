@@ -7,6 +7,6 @@ namespace MoneyTransfer.Infrastructure.PluginContracts
     public interface ITransactionRepository
     {
         public Task AddTransaction(NewTransaction newTransaction);
-        public Task<IEnumerable<Transaction>> GetDailyTransferAmountForAccount(int accountId, TransactionType? transctionType = null);
+        public Task<List<Transaction>> GetDailyTransferAmountForAccount(int accountId, TransactionType? transctionType = null);
     }
 }

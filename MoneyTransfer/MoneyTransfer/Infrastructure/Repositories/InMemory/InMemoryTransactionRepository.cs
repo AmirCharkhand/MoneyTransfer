@@ -28,13 +28,13 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
             await Task.CompletedTask;
         }
 
-        public async Task<IEnumerable<Transaction>> GetDailyTransferAmountForAccount(int accountId, TransactionType? transactionType = null)
+        public async Task<List<Transaction>> GetDailyTransferAmountForAccount(int accountId, TransactionType? transactionType = null)
         {
             var transactions = _transactions
-                .Where(t => t.AccountId == accountId 
+                .Where(t => t.AccountId == accountId
                     && t.TransactionTime.Date == DateTime.Now.Date
                     && (!transactionType.HasValue || t.Type == transactionType))
-                .AsEnumerable();
+                .ToList();
 
             await Task.CompletedTask;
             return transactions;
