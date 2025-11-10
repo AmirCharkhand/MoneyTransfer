@@ -18,6 +18,13 @@ namespace MoneyTransfer.Application.UseCases.Account
             var toAccount = await _accountRepository.GetBankAcountByIdAsync(toAccountId)
                 ?? throw new AccountNotFoundException(toAccountId);
 
+            if (fromAccount.Balance < amount)
+                throw new NotEnoughAccountBalanceException();
+
+            var dailyTransfers = await _transactionRepository.GetDailyTransferAmountForAccount(fromAccountId, TransactionType.Decremental);
+            if (dailyTransfers.Sum(t => t.Amount) + amount > 10000000)
+                throw new DailyTransferLimitReachedException();
+
             var fromAccountTransaction = new NewTransaction(
                 Guid.NewGuid(),
                 fromAccountId,

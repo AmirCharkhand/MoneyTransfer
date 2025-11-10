@@ -22,6 +22,7 @@ namespace MoneyTransfer.Controllers
 
         [HttpPost("transfer")]
         [Account_HandleAccountNotFoundExeption]
+        [Account_HandleTransferExceptionsFilter]
         public async Task<IActionResult> TransferMoney([FromBody]MoneyTransferDto moneyTransferDto)
         {
             await _transferMoneyUseCase.ExecuteAsync(moneyTransferDto.FromAccountId, moneyTransferDto.ToAccountId, moneyTransferDto.Amount);
