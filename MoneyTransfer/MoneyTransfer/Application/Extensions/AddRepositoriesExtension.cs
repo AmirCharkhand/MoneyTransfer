@@ -1,5 +1,6 @@
 ﻿using MoneyTransfer.Infrastructure.PluginContracts;
 using MoneyTransfer.Infrastructure.Repositories.InMemory;
+using MoneyTransfer.Infrastructure.Repositories.SqlServer;
 
 namespace MoneyTransfer.Application.Extensions
 {
@@ -8,8 +9,8 @@ namespace MoneyTransfer.Application.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services
-                .AddSingleton<IAccountRepository, InMemoryAccountRepository>()
-                .AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
+                .AddScoped<IAccountRepository, SqlServerAccountRepository>()
+                .AddScoped<ITransactionRepository, SqlServerTransactionRepository>();
 
             return services;
         }
