@@ -41,13 +41,11 @@ namespace MoneyTransfer.Application.UseCases.Account
                 toAccount.Balance,
                 amount);
 
-            await Task.WhenAll(
-                _transactionRepository.AddTransaction(fromAccountTransaction),
-                _transactionRepository.AddTransaction(toAccountTransaction));
+            await _transactionRepository.AddTransaction(fromAccountTransaction);
+            await _transactionRepository.AddTransaction(toAccountTransaction);
 
-            await Task.WhenAll(
-                _accountRepository.UpdateAccountBalance(fromAccountId, fromAccount.Balance - amount),
-                _accountRepository.UpdateAccountBalance(toAccountId, toAccount.Balance + amount));
+            await _accountRepository.UpdateAccountBalance(fromAccountId, fromAccount.Balance - amount);
+            await _accountRepository.UpdateAccountBalance(toAccountId, toAccount.Balance + amount);
         }
     }
 }
