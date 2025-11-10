@@ -39,5 +39,17 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
             await Task.CompletedTask;
             return transactions;
         }
+
+        public async Task<List<Transaction>> GetLastTransactionsForAccount(int accountId, int numberOfTransactions)
+        {
+            var transactions = _transactions
+                .Where(t => t.AccountId == accountId)
+                .Reverse()
+                .Take(numberOfTransactions)
+                .ToList();
+
+            await Task.CompletedTask;
+            return transactions;
+        }
     }
 }
