@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+MoneyTransfer/MoneyTransfer/appsettings.Development.json
