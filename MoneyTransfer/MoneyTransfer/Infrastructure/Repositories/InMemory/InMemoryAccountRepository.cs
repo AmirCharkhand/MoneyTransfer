@@ -11,9 +11,9 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
         {
             _accounts = new List<BankAcount>()
             {
-                new () { Id = 1, Balance = 10000000, UserId = 1 },
-                new () { Id = 2, Balance = 25000000, UserId = 2 },
-                new () { Id = 3, Balance = 5000000, UserId = 1 }
+                new () { Id = 1, Balance = 10000000 },
+                new () { Id = 2, Balance = 25000000 },
+                new () { Id = 3, Balance = 5000000 }
             };
         }
         public async Task<double?> GetAccountBalanceAsync(int accountId)
