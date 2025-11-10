@@ -8,7 +8,8 @@ namespace MoneyTransfer.Application.Extensions
         {
             services
                 .AddTransient<GetAccountBalanceUseCase>()
-                .AddTransient<TransferMoneyUseCase>();
+                .AddTransient<TransferMoneyUseCase>()
+                .AddTransient<Get10LastTransactionsForAccountUseCase>();
 
             return services;
         }
