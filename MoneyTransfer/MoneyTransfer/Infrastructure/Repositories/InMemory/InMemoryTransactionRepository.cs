@@ -1,4 +1,5 @@
 ﻿using MoneyTransfer.Application.Models;
+using MoneyTransfer.CoreBusiness.Enums;
 using MoneyTransfer.CoreBusiness.Models;
 using MoneyTransfer.Infrastructure.PluginContracts;
 
@@ -25,6 +26,18 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
 
             _transactions.Add(transaction);
             await Task.CompletedTask;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetDailyTransferAmountForAccount(int accountId, TransactionType? transactionType = null)
+        {
+            var transactions = _transactions
+                .Where(t => t.AccountId == accountId 
+                    && t.TransactionTime.Date == DateTime.Now.Date
+                    && (!transactionType.HasValue || t.Type == transactionType))
+                .AsEnumerable();
+
+            await Task.CompletedTask;
+            return transactions;
         }
     }
 }
