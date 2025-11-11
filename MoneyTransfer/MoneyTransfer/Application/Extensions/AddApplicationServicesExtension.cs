@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MoneyTransfer.Application.Services;
-using MoneyTransfer.Infrastructure.Data;
+﻿using MoneyTransfer.Application.Services;
 
 namespace MoneyTransfer.Application.Extensions
 {
@@ -10,10 +8,10 @@ namespace MoneyTransfer.Application.Extensions
         {
             services.AddControllers();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DevelopmentConnectionString")));
-
             services
+                .AddDbContextService(configuration)
+                .AddAuthenticationService(configuration)
+                .AddHttpContextAccessor()
                 .AddRepositories()
                 .AddUseCases();
 

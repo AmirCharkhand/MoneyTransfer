@@ -5,9 +5,10 @@ using System.Security.Claims;
 
 namespace MoneyTransfer.Application.Services
 {
-    public class JwtService(IConfiguration configuration)
+    public class JwtService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         private readonly IConfiguration _configuration = configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
         public string GenerateToken(User user)
         {
@@ -32,6 +33,22 @@ namespace MoneyTransfer.Application.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public int? GetUserIdFromToken()
+        {
+            var user = _httpContextAccessor.HttpContext?.User;
+            if (user is null)
+                return null;
+
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim is null)
+                return null;
+
+            if (int.TryParse(userIdClaim.Value, out int userId))
+                return userId;
+
+            return null;
         }
     }
 }
