@@ -1,4 +1,5 @@
 ﻿using MoneyTransfer.Application.UseCases.AccountUseCases;
+using MoneyTransfer.Application.UseCases.AuthenticationUseCases;
 using MoneyTransfer.Application.UseCases.UserUseCases;
 
 namespace MoneyTransfer.Application.Extensions
@@ -11,7 +12,8 @@ namespace MoneyTransfer.Application.Extensions
                 .AddTransient<GetAccountBalanceUseCase>()
                 .AddTransient<TransferMoneyUseCase>()
                 .AddTransient<Get10LastTransactionsForAccountUseCase>()
-                .AddTransient<AddNewUserUseCase>();
+                .AddTransient<AddNewUserUseCase>()
+                .AddTransient<LoginUseCase>();
 
             return services;
         }
