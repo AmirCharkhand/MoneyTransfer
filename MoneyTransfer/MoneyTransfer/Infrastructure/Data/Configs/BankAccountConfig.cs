@@ -14,15 +14,20 @@ namespace MoneyTransfer.Infrastructure.Data.Configs
                 .HasForeignKey(Transaction => Transaction.AccountId);
 
             builder
+                .HasOne(ba => ba.User)
+                .WithMany(u => u.Accounts)
+                .HasForeignKey(ba => ba.UserId);
+
+            builder
                 .Property(ba => ba.Balance)
                 .HasAnnotation("RangeMin", 0)
                 .HasAnnotation("RangeMax", double.MaxValue);
 
             builder
                 .HasData(
-                    new BankAcount { Id = 1, Balance = 10000000 },
-                    new BankAcount { Id = 2, Balance = 25000000 },
-                    new BankAcount { Id = 3, Balance = 5000000 }
+                    new BankAcount { Id = 1, Balance = 10000000, UserId = 1 },
+                    new BankAcount { Id = 2, Balance = 25000000, UserId = 2 },
+                    new BankAcount { Id = 3, Balance = 5000000, UserId = 3 }
                 );
         }
     }

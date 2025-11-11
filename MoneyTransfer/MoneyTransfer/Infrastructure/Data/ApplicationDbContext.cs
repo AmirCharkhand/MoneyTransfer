@@ -12,6 +12,7 @@ namespace MoneyTransfer.Infrastructure.Data
 
         public DbSet<BankAcount> BankAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
