@@ -13,11 +13,12 @@ namespace MoneyTransfer.Application.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DevelopmentConnectionString")));
 
-            services.AddTransient<HashService>();
-
             services
                 .AddRepositories()
                 .AddUseCases();
+
+            services.AddTransient<HashService>();
+            services.AddTransient<JwtService>();
         }
     }
 }

@@ -1,0 +1,37 @@
+﻿using Microsoft.IdentityModel.Tokens;
+using MoneyTransfer.CoreBusiness.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
+namespace MoneyTransfer.Application.Services
+{
+    public class JwtService(IConfiguration configuration)
+    {
+        private readonly IConfiguration _configuration = configuration;
+
+        public string GenerateToken(User user)
+        {
+            var secret = _configuration["JwtSecret"];
+            if (string.IsNullOrEmpty(secret))
+                throw new InvalidOperationException("JWT secret is not configured.");
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = creds
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+    }
+}
