@@ -6,5 +6,6 @@ namespace MoneyTransfer.Infrastructure.PluginContracts
     {
         public Task AddUser(User user);
         public Task<User?> GetUserByEmail(string email);
+        public Task<User?> GetUserByIdWhithAccounts(int id);
     }
 }

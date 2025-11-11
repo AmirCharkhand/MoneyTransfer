@@ -22,5 +22,14 @@ namespace MoneyTransfer.Infrastructure.Repositories.SqlServer
 
             return user;
         }
+
+        public async Task<User?> GetUserByIdWhithAccounts(int id)
+        {
+            var user = await _dbContext.Users
+                .Include(u => u.Accounts)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            return user;
+        }
     }
 }
