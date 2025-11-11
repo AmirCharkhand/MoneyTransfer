@@ -10,7 +10,8 @@ namespace MoneyTransfer.Application.Extensions
         {
             services
                 .AddScoped<IAccountRepository, SqlServerAccountRepository>()
-                .AddScoped<ITransactionRepository, SqlServerTransactionRepository>();
+                .AddScoped<ITransactionRepository, SqlServerTransactionRepository>()
+                .AddScoped<IUserRepository, SqlServerUserRepository>();
 
             return services;
         }
