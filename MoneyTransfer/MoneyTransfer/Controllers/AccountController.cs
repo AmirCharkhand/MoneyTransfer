@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoneyTransfer.Application.Models;
 using MoneyTransfer.Application.UseCases.AccountUseCases;
 using MoneyTransfer.Controllers.ExceptionFilters;
 
 namespace MoneyTransfer.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController(

@@ -1,20 +1,30 @@
 ﻿using MoneyTransfer.Application.Exceptions;
 using MoneyTransfer.Application.Models;
+using MoneyTransfer.Application.Services;
 using MoneyTransfer.CoreBusiness.Enums;
 using MoneyTransfer.CoreBusiness.Models;
 using MoneyTransfer.Infrastructure.PluginContracts;
 
 namespace MoneyTransfer.Application.UseCases.AccountUseCases
 {
-    public class TransferMoneyUseCase(IAccountRepository accountRepository, ITransactionRepository transactionRepository)
+    public class TransferMoneyUseCase(IAccountRepository accountRepository, ITransactionRepository transactionRepository, JwtService jwtService)
     {
         private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly ITransactionRepository _transactionRepository = transactionRepository;
+        private readonly JwtService _jwtService = jwtService;
 
         public async Task ExecuteAsync(int fromAccountId, int toAccountId, double amount)
         {
-            var fromAccount = await _accountRepository.GetBankAcountByIdAsync(fromAccountId)
+            var userId = _jwtService.GetUserIdFromToken()
+                ?? throw new NotAuthenticatedException();
+
+            var fromAccountOwner = await _accountRepository.GetAccountOwner(fromAccountId)
                 ?? throw new AccountNotFoundException(fromAccountId);
+
+            if (fromAccountOwner.Id != userId)
+                throw new NotAuthorizedException();
+
+            var fromAccount = await _accountRepository.GetBankAcountByIdAsync(fromAccountId);
 
             var toAccount = await _accountRepository.GetBankAcountByIdAsync(toAccountId)
                 ?? throw new AccountNotFoundException(toAccountId);
