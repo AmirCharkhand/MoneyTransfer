@@ -18,7 +18,7 @@ namespace MoneyTransfer.Infrastructure.Repositories.SqlServer
         public async Task<User?> GetUserByEmail(string email)
         {
             var user = await _dbContext.Users
-                .FirstOrDefaultAsync(u => string.Equals(u.Email, email, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefaultAsync(u => string.Equals(u.Email.ToLower(), email.ToLower()));
 
             return user;
         }
