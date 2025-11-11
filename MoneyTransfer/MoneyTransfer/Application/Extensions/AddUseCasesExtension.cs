@@ -1,4 +1,4 @@
-﻿using MoneyTransfer.Application.UseCases.Account;
+﻿using MoneyTransfer.Application.UseCases.AccountUseCases;
 
 namespace MoneyTransfer.Application.Extensions
 {

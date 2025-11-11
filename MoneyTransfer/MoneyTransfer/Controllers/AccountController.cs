@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoneyTransfer.Application.Models;
-using MoneyTransfer.Application.UseCases.Account;
+using MoneyTransfer.Application.UseCases.AccountUseCases;
 using MoneyTransfer.Controllers.ExceptionFilters;
 
 namespace MoneyTransfer.Controllers

@@ -1,7 +1,7 @@
 ﻿using MoneyTransfer.Application.Exceptions;
 using MoneyTransfer.Infrastructure.PluginContracts;
 
-namespace MoneyTransfer.Application.UseCases.Account
+namespace MoneyTransfer.Application.UseCases.AccountUseCases
 {
     public class GetAccountBalanceUseCase(IAccountRepository accountRepository)
     {
