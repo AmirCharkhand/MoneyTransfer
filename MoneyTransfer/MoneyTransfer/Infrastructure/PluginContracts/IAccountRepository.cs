@@ -7,5 +7,6 @@ namespace MoneyTransfer.Infrastructure.PluginContracts
         public Task<BankAcount?> GetBankAcountByIdAsync(int id);
         public Task<double?> GetAccountBalanceAsync(int accountId);
         public Task UpdateAccountBalance(int accountId, double newBalance);
+        public Task<User?> GetAccountOwner(int accountId);
     }
 }

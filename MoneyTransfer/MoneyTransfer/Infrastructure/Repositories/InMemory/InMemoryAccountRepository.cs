@@ -23,6 +23,11 @@ namespace MoneyTransfer.Infrastructure.Repositories.InMemory
             return balance;
         }
 
+        public Task<User> GetAccountOwner(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<BankAcount?> GetBankAcountByIdAsync(int id)
         {
             var account = _accounts.FirstOrDefault(a =>a.Id == id);

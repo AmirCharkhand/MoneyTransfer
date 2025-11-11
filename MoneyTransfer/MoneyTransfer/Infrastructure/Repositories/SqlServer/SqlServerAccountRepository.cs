@@ -16,6 +16,15 @@ namespace MoneyTransfer.Infrastructure.Repositories.SqlServer
             return account?.Balance;
         }
 
+        public async Task<User?> GetAccountOwner(int accountId)
+        {
+            var account = await _dbContext.BankAccounts
+                .Include(ba => ba.User)
+                .FirstOrDefaultAsync(ba => ba.Id == accountId);
+
+            return account?.User;
+        }
+
         public async Task<BankAcount?> GetBankAcountByIdAsync(int id)
         {
             return await _dbContext.BankAccounts
