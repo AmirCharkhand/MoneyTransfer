@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoneyTransfer.Application.Services;
 using MoneyTransfer.Infrastructure.Data;
 
 namespace MoneyTransfer.Application.Extensions
@@ -11,6 +12,8 @@ namespace MoneyTransfer.Application.Extensions
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DevelopmentConnectionString")));
+
+            services.AddTransient<HashService>();
 
             services
                 .AddRepositories()
