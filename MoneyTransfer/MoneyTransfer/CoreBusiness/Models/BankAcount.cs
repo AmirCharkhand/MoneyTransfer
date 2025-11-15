@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
 
 namespace MoneyTransfer.CoreBusiness.Models
 {
@@ -7,6 +7,8 @@ namespace MoneyTransfer.CoreBusiness.Models
         public int Id { get; set; }
         public double Balance { get; set; }
         public int UserId { get; set; }
+
+        [JsonIgnore]
         public User? User { get; set; }
     }
 }
