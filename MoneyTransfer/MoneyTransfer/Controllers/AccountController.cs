@@ -20,6 +20,7 @@ namespace MoneyTransfer.Controllers
 
         [HttpGet("balance/{id}")]
         [Account_HandleAccountNotFoundExeption]
+        [Account_HandleAuthorizationExceptionsFilter]
         public async Task<IActionResult> GetAccountBalance([FromRoute]int id)
         {
             var balance = await _getAccountBalanceUseCase.ExecuteAsync(id);
@@ -29,6 +30,7 @@ namespace MoneyTransfer.Controllers
         [HttpPost("transfer")]
         [Account_HandleAccountNotFoundExeption]
         [Account_HandleTransferExceptionsFilter]
+        [Account_HandleAuthorizationExceptionsFilter]
         public async Task<IActionResult> TransferMoney([FromBody]MoneyTransferDto moneyTransferDto)
         {
             await _transferMoneyUseCase.ExecuteAsync(moneyTransferDto.FromAccountId, moneyTransferDto.ToAccountId, moneyTransferDto.Amount);
@@ -37,6 +39,7 @@ namespace MoneyTransfer.Controllers
 
         [HttpGet("last-10-transactions/{id}")]
         [Account_HandleAccountNotFoundExeption]
+        [Account_HandleAuthorizationExceptionsFilter]
         public async Task<IActionResult> GetLast10Transactions([FromRoute] int id)
         {
             var transactions = await _get10LastTransactionsForAccountUseCase.ExecuteAsync(id);
